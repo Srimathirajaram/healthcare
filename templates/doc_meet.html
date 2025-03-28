@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Consultancy</title>
+  
+  <link href="../static/css/style.css" rel="stylesheet">
+  
+  
+</head>
+<body>
+ <div class="card">
+                            <div class="card-body">
+
+<h4 align="center">Online Consultation</h4>
+<div class="row">
+ <div class="col-md-8">
+ <iframe src="/test2?name={{name}}" width="100%" height="700" frameborder="0"></iframe>
+  
+  </div>
+ 
+ <div class="col-md-4">
+ 		
+								
+							
+								{% for rs in data2 %}
+								
+								<div style="background-color:#0066CC; color:#FFFFFF; height:30px; line-height:30px">Patient Name: {{rs[1]}}</div>
+								<div class="row">
+									<div class="col-md-12">
+									<p align="center"><img src="../static/detect/{{rs[12]}}" width="100" height="150"></p>
+									<p>
+									Severity Level: {{rs[11]}}<br>
+									Mobile No.: {{rs[2]}}<br>
+									Email: {{rs[3]}}
+									</p>
+									
+										<table class="table">
+											<tr>
+											<th>Symptoms</th>
+											
+											</tr>
+											{% for rs2 in rs[13]%}
+												<tr>
+													<td>{{rs2[1]}} <br>{{rs2[2]}}</td>
+													
+												</tr>
+											{% endfor %}
+										</table>
+										
+										
+									</div>
+									
+									</div>
+									
+			
+								</div>
+								</div>
+								<hr>
+								<br>
+								{% endfor %}
+								
+								
+ 
+ </div>
+ </div>
+ 
+  </div>
+  </div>
+  </div>
+</body>
+</html>

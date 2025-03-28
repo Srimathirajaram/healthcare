@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>AI Consultancy</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon.png">
+    <!-- Custom Stylesheet -->
+    <link href="../static/css/style.css" rel="stylesheet">
+<script src="../static/js/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+
+
+<div id="message"></div>
+  <script>
+        $(document).ready(function () {
+            // Function to retrieve data from the server
+            function retrieveData() {
+                $.ajax({
+                    url: '/bot1',
+                    type: 'GET',
+                    success: function (response) {
+                         var tableHtml = '<div>';
+                        $.each(response, function (index, item) {
+								if(item[1]!="")
+								{
+								tableHtml +='<div align="left" style="background-color:#D7F2FF; border:#2FBBFF 1px solid; padding:5px; width:100%">';
+								tableHtml += item[1];
+								tableHtml += '</div><br>';
+								}
+								else
+								{
+								tableHtml += '<div align="right" style="background-color:#E6FFE6; border:#77FF77 1px solid; padding:5px; width:100%">';
+								tableHtml += item[2];
+								tableHtml += '</div><br><br>';
+								}
+                           
+                        });
+                        tableHtml += '</div>';
+							
+                        $("#message").html(tableHtml);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            }
+
+            // Automatically retrieve data every 5 seconds (adjust interval as needed)
+            setInterval(retrieveData, 5000); // Change interval as needed
+        });
+    </script>
+  
+
+</body>
+</html>

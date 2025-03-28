@@ -1,0 +1,149 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+
+ <link href="../static/css/style.css" rel="stylesheet">
+<script>
+	function show()
+	{
+	document.getElementById("x1").style.display="block";
+	document.getElementById("x2").style.display="none";
+	}
+	/////////////
+	
+		var result = document.getElementById('result');
+  
+		function startConverting () {
+		
+		document.getElementById("x1").style.display="none";
+	document.getElementById("x2").style.display="block";
+
+		if('webkitSpeechRecognition' in window) {
+			var speechRecognizer = new webkitSpeechRecognition();
+			speechRecognizer.continuous = true;
+			speechRecognizer.interimResults = true;
+			speechRecognizer.lang = 'en-US';
+			speechRecognizer.start();
+
+			var finalTranscripts = '';
+
+			speechRecognizer.onresult = function(event) {
+				var interimTranscripts = '';
+				for(var i = event.resultIndex; i < event.results.length; i++){
+					var transcript = event.results[i][0].transcript;
+					transcript.replace("\n", "<br>");
+					if(event.results[i].isFinal) {
+						finalTranscripts += transcript;
+						document.form1.res.value=finalTranscripts;
+						getVal();
+					}else{
+						interimTranscripts += transcript;
+					}
+				}
+				result.innerHTML = finalTranscripts + '<span style="color: #999">' + interimTranscripts + '</span>';
+			};
+			speechRecognizer.onerror = function (event) {
+
+			};
+			
+			getPost();
+			
+		}else {
+			result.innerHTML = 'Your browser is not supported. Please download Google chrome or Update your Google chrome!!';
+		}	
+		}
+	
+	</script>
+	<script language="javascript">
+function getVal()
+{
+
+
+setTimeout(function () {
+   //Redirect with JavaScript
+  document.getElementById("myForm").submit(); 
+}, 2000);
+}
+</script>
+
+
+</head>
+
+<body onLoad="startConverting()" class="">
+		<div class="">
+                            <div class="" style="background-color:#FFFFFF">
+		<p>&nbsp;</p>
+				<div class="row">
+					<div class="col-md-2"></div>
+					<div class="col-md-10">
+					
+					
+					<h5 style="color:#FF3300" align="center">Pain Predicted!</h5>
+					<h5 align="center">Severity Level: {{emo}}</h5>
+						
+					{% if s1=="1" %}
+					
+					
+					
+					<h4 align="center">Please you consult the {{consult}}</h4>
+					<br><br>
+					
+					<script>
+//Using setTimeout to execute a function after 5 seconds.
+setTimeout(function () {
+   //Redirect with JavaScript
+   window.parent.location.href= '/meet?consult={{consult}}';
+}, 3000);
+</script>
+					<!--<p align="center"><a href="/view_consult?consult=" target="_parent">Online Consultants</a></p>-->
+					{% else %}
+					
+						<p align="center">{{row[1]}}</p>
+						<iframe src="http://localhost/consult/voice_read.php?mess={{row[1]}}" width="5" height="5" frameborder="0"></iframe>
+						
+						<div class="row">
+							<div class="col-md-2"></div>
+							<div class="col-md-8" align="center">
+							<table border="0" align="center">
+						<tr>
+						<td width="20%">
+						<div id="x1">
+						 <a href="javascript:startConverting();"><i class="fa fa-microphone btn btn-danger" aria-hidden="true"></i></a>
+							</div>
+							
+							<div id="x2" style="display:none">
+						<a href="javascript:show();"> <img src="../static/mic-animate.gif"></a>
+						</div>
+						</td>
+						<td width="80%">
+						<form name="form1" id="myForm" method="post" action="">
+						
+						<input name="msg_input" id="res" class="form-control" placeholder="" required />
+						<input type="hidden" name="qid1" value="{{qid}}">
+						
+						</form>
+						</td>
+						</tr>
+						</table>
+						<p>&nbsp;</p>
+					<p>&nbsp;</p>
+						</div>
+						</div>
+					
+					
+					
+					{% endif %}
+					
+					
+					</div>
+					</div>
+					
+					
+					</div>
+				</div>
+				
+					
+
+</body>
+</html>

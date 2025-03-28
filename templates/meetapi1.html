@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+<script src="../static/chatroom_checkpoint.js"></script>
+    <!-- custom css -->
+	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+    <link rel="stylesheet" href="../static/style.css">
+	 <link rel="stylesheet" href="../static/chatroom.css">
+	 <script type="text/javascript"> 
+         var myRoomID = "{{room_id}}"; 
+        var myName = "{{display_name}}"; 
+        var audioMuted = "{{mute_audio}}"=="1";
+        var videoMuted = "{{mute_video}}"=="1";
+        console.log(">> {{mute_audio}}, {{mute_video}}", audioMuted, videoMuted);
+    </script>
+    <script src="{{url_for('static', filename='chatroom_ui.js')}}"></script>
+    <script src="{{url_for('static', filename='chatroom_networking.js')}}"></script>
+
+</head>
+
+<body>
+  
+  		
+                          
+                <div class="shadow p-0">
+                    <div class="vid-wrapper" style="">
+                        <video id="local_vid" autoplay muted style="max-height: 400px; max-width: 100%;"></video>
+                    </div>
+                    <div class="p-3 w-100 bg-light" >
+                        <button id="bttn_mute" class="btn btn-lg btn-outline-secondary rounded-circle mx-3">
+                            <span id="mute_icon" class="material-icons pt-2">
+                                mic
+                            </span>
+                        </button>
+                        <button id="bttn_vid_mute"class="btn btn-lg btn-outline-secondary rounded-circle mx-3">
+                            <span id="vid_mute_icon" class="material-icons pt-2">
+                                videocam
+                            </span>
+                        </button>
+                    </div>
+               	</div>
+</body>
+</html>

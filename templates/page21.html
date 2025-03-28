@@ -1,0 +1,157 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+
+ <link href="../static/css/style.css" rel="stylesheet">
+ 
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+  
+<script>
+	function show()
+	{
+	document.getElementById("x1").style.display="block";
+	document.getElementById("x2").style.display="none";
+	}
+	/////////////
+	
+		var result = document.getElementById('result');
+  
+		function startConverting () {
+		
+		document.getElementById("x1").style.display="none";
+	document.getElementById("x2").style.display="block";
+
+		if('webkitSpeechRecognition' in window) {
+			var speechRecognizer = new webkitSpeechRecognition();
+			speechRecognizer.continuous = true;
+			speechRecognizer.interimResults = true;
+			speechRecognizer.lang = 'en-US';
+			speechRecognizer.start();
+
+			var finalTranscripts = '';
+
+			speechRecognizer.onresult = function(event) {
+				var interimTranscripts = '';
+				for(var i = event.resultIndex; i < event.results.length; i++){
+					var transcript = event.results[i][0].transcript;
+					transcript.replace("\n", "<br>");
+					if(event.results[i].isFinal) {
+						finalTranscripts += transcript;
+						document.form1.res.value=finalTranscripts;
+						getVal();
+					}else{
+						interimTranscripts += transcript;
+					}
+				}
+				result.innerHTML = finalTranscripts + '<span style="color: #999">' + interimTranscripts + '</span>';
+			};
+			speechRecognizer.onerror = function (event) {
+
+			};
+			
+			getPost();
+			
+		}else {
+			result.innerHTML = 'Your browser is not supported. Please download Google chrome or Update your Google chrome!!';
+		}	
+		}
+	
+	</script>
+</head>
+
+<body onLoad="startConverting()">
+
+		<h5 style="color:#FF3300" align="center">Pain Predicted!</h5>
+<h5 align="center">Severity Level: {{emo}}</h5>
+
+<script language="javascript">
+function getVal()
+{
+
+
+setTimeout(function () {
+   //Redirect with JavaScript
+  document.getElementById("myForm").submit(); 
+}, 2000);
+}
+</script>
+
+		
+		<p>&nbsp;</p>
+				<div class="row">
+					<div class="col-md-2"></div>
+					<div class="col-md-10">
+					{% if s1=="1" %}
+					
+					
+					
+					<h4 align="center">Please you consult the {{consult}}</h4>
+					<br><br>
+					<p align="center"><a href="/view_consult?consult={{consult}}">Online Consultants</a></p>
+					{% else %}
+					
+							
+							<div class="chat_window">
+
+					<div class="top_menu">
+						<div class="title">User: {{uname}}</div>
+					</div>
+
+					<!-- dynamically rendered  class="app_button_1"-->
+					<ul class="messages"></ul>
+
+					<!-- input -->
+					<div class="bottom_wrapper">
+					<!--<span id="x2" style="display:block"><a href="javascript:getEmoji('1')"><img src="../static/img/e1.jpg" width="40" height="40"></a></span>
+						<span id="x3" style="display:none"><a href="javascript:getEmoji('2')"><img src="../static/img/e1.jpg" width="40" height="40"></a></span>-->
+						<div id="result"></div>
+							
+							<div id="x1">
+						 <a href="javascript:startConverting();"><i class="fa fa-microphone btn btn-danger" aria-hidden="true"></i></a>
+						 	</div>
+							
+							<div id="x2" style="display:none">
+						<a href="javascript:show();"> <img src="../static/mic-animate.gif"></a>
+						</div>
+						
+						<form name="form1" id="myForm" method="post" action="/bot">
+						
+						<input name="msg_input" id="res" class="box" placeholder="Say Hi to begin chat..." required />
+						
+						<!--<input type="button" id="send_button" class="btn">Send</button>-->
+						<input type="hidden" name="emj">
+						{{row[1]}}
+						<span style="display:none"><input type="text" name="msg_input1"></span>
+						<input type="hidden" name="qid1" value="{{qid}}">
+						<span id="x4">&nbsp;</span>
+						 <button class="app_button_1" type="button" style="background-color:#FF0000; color:#FFFFFF">Send </button>
+						<!-- <button type="button" class="app_button_1" onClick="getClear()">Clear</button>-->
+						</form>
+						
+						
+					
+					</div>
+
+							
+							
+					
+					
+					
+					
+					{% endif %}
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					
+					<div class="col-md-12">
+						
+					</div>
+				</div>
+						
+							
+	<script src="../static/web/js/main.js"></script>				
+
+</body>
+</html>

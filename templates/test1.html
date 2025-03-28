@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask AJAX Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  
+  <input type="text" id="input-value" placeholder="Enter input value">
+    <button id="retrieve-btn">Retrieve Data</button>
+
+    <div id="message"></div>
+
+   <script>
+        $(document).ready(function () {
+            $("#retrieve-btn").click(function () {
+                var inputValue = $("#input-value").val();
+
+                $.ajax({
+                    url: '/get_data',
+                    type: 'GET',
+                    data: {'input_value': inputValue},
+                    success: function (response) {
+                        var tableHtml = '<table border="1"><thead><tr><th>ID</th><th>Name</th><th>Email</th></tr></thead><tbody>';
+                        $.each(response, function (index, item) {
+                            tableHtml += '<tr><td>' + item[1] + '</td><td>' + item[2] + '</td><td>' + item[9] + '</td></tr>';
+                        });
+                        tableHtml += '</tbody></table>';
+                        $("#message").html(tableHtml);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
